@@ -1,24 +1,35 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Homepage from './pages/home';
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
+import MainLayout from './components/main-layout';
+import ProductPage from './pages/product';
+import UserPage from './pages/user';
 
 function App() {
+  let LayoutRouter =(
+    <MainLayout>
+        <Switch>
+          <Route exact path="/" component={Homepage} />
+          <Route exact path="/product" component={ProductPage} />
+          <Route exact path="/user" component={UserPage} />
+          <Route exact path="/order" component={Homepage} />
+          <Route component={Error} />
+        </Switch>
+      </MainLayout>
+   );
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Router>
+          <Switch>
+            <Route render={props => LayoutRouter } />
+          </Switch>
+        </Router>
     </div>
   );
 }
